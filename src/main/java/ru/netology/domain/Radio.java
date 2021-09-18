@@ -4,6 +4,11 @@ public class Radio {
     private int stationNumber;
     private int volume;
 
+    public Radio(int stationNumber,int volume) {
+        this.stationNumber = stationNumber;
+        this.volume = volume;
+    }
+
     public int getStationNumber() {
         return stationNumber;
     }
@@ -21,31 +26,35 @@ public class Radio {
     }
 
     public void stationUp() {
-        if (stationNumber == 9) { //Проверяет, равны ли значения или нет, если да, тошда условие становится истинным и станция становится 0
+        if (stationNumber == 10) { //Проверяет, равны ли значения или нет, если да, тогда условие становится истинным и станция становится 0
             stationNumber = 0;
-        } else
+        } else {
             stationNumber++;
+        }
     }
 
     public void statioDown() {
         if (stationNumber == 0) {
-            stationNumber = 9;
-        } else
+            stationNumber = 10;
+        } else {
             stationNumber--;
+        }
     }
 
     public void volumeUp() {
-        if (volume == 10) {
-            volume = 10;
-        } else
+        if (volume == 100) {
+            volume = 100;
+        } else {
             volume++;
+        }
     }
 
     public void volumeDown() {
         if (volume == 0) {
             volume = 0;
-        } else
+        } else {
             volume--;
+        }
     }
 }
 
