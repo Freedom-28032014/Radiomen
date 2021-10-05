@@ -5,68 +5,79 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RadioTest {
+    Radio radio = new Radio();
 
 
     @Test
     void shouldStationNext() {  ///выбор следующей станции
-        Radio radio = new Radio(0,10);
-        radio.stationUp();
-        assertEquals(1, radio.getStationNumber());
+        radio.nextRadioStation();
+        assertEquals(1, radio.getCurrentRadioStation());
 
     }
 
     @Test
     void shouldStationPrev() {  ///выбор предыдущий станции
-       Radio radio = new Radio(5,10);
-        radio.statioDown();
-        assertEquals(4, radio.getStationNumber());
+        radio.setCurrentRadioStation(3);
+        radio.prevRadioStation();
+        int expected = 2;
+        assertEquals(expected, radio.getCurrentRadioStation());
     }
 
     @Test
     void shouldStationUpWhenStationMax() { /// переход станции после максимальной
-        Radio radio = new Radio (10,10);
-        radio.stationUp();
-        assertEquals(0, radio.getStationNumber());
+        radio.setCurrentRadioStation(11);
+        int expected = radio.getCurrentRadioStation();
+        int actual = radio.getCurrentRadioStation();
+        assertEquals(expected,actual);
     }
 
     @Test
     void shouldStationDownWhenStationMin() { /// переход станции после минимальной
-        Radio radio = new Radio(0,10);
-        radio.statioDown();
-        assertEquals(10, radio.getStationNumber());
+        int expected = radio.getCurrentRadioStation();
+        radio.setCurrentRadioStation(radio.getMinStation()-3);
+        int actual = radio.getCurrentRadioStation();
+        assertEquals(expected,actual);
     }
 
     @Test
-    void shouldSetStationNumber() { //выбор станции
-        Radio radio = new Radio(5,5);
-        assertEquals(5, radio.getStationNumber());
+    void shouldTheStationByButtonIfCurrentNull() { //выбор станции , если текущая 0
+        radio.setCurrentRadioStation(radio.getMinStation());
+        radio.prevRadioStation();
+        assertEquals(9, radio.getCurrentRadioStation());
 
+    }
+    @Test
+    void shouldTheStationByButtonNextIfCurrentIsNine() { //выбор станции, если текущая 9
+        int expected = radio.getCurrentRadioStation();
+        radio.setCurrentRadioStation(9);
+        radio.nextRadioStation();
+        assertEquals(expected,radio.getCurrentRadioStation());
     }
 
     @Test
     void shouldVolumUp() {  ///увелечение звука на одну единицу
-        Radio radio = new Radio(2,50);
-        radio.volumeUp();
-        assertEquals(51, radio.getVolume());
+        radio.VolumeUp();
+        assertEquals(1, radio.getCurrentVolume());
     }
 
     @Test
     void shouldVolumDown() {  ///уменьшение звука на одну единицу
-        Radio radio =new Radio(2,50);
-        radio.volumeDown();
-        assertEquals(49 , radio.getVolume());
+        radio.setCurrentVolume(3);
+        int expected = 2;
+        radio.VolumeDown();
+        assertEquals(expected , radio.getCurrentVolume());
     }
     @Test
     void shouldVolumeUpWhenVolumeMax() { ///увелечение звука после максимальной громкости (10)
-        Radio radio = new Radio(2,100);
-        radio.volumeUp();
-        assertEquals(100, radio.getVolume());
+        radio.setCurrentVolume(100);
+        int expected = 100;
+        radio.VolumeUp();
+        assertEquals(expected, radio.getCurrentVolume());
     }
     @Test
         void shouldVolumeUpWhenVolumenMin () { ///уменьшение звука после минимальной громкости (0)
-        Radio radio = new Radio(2,0);
-        radio.volumeDown();
-        assertEquals(0, radio.getVolume());
-
+        radio.setCurrentVolume(0);
+        radio.VolumeDown();
+        assertEquals(0,radio.getCurrentVolume());
     }
 }

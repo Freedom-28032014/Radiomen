@@ -1,61 +1,89 @@
 package ru.netology.domain;
 
 public class Radio {
-    private int stationNumber;
-    private int volume;
+    private int currentRadioStation;
+    private int currentVolume;
+    private int maxStation;
+    private int minStation = 0;
+    private int maxVolume = 100;
+    private int minVolume = 0;
+    private int amountStation = 10;
 
-    public Radio(int stationNumber,int volume) {
-        this.stationNumber = stationNumber;
-        this.volume = volume;
+    public Radio() {
     }
 
-    public int getStationNumber() {
-        return stationNumber;
+    public Radio(int amountStation) {
+        this.amountStation = amountStation;
     }
 
-    public void setStationNumber(int stationNumber) {
-        this.stationNumber = stationNumber;
+    public int getMaxStation() {
+        return maxStation;
     }
 
-    public int getVolume() {
-        return volume;
+    public int getMinStation() {
+        return minStation;
     }
 
-    public void setVolume(int volume) {
-        this.volume = volume;
+    public int getCurrentRadioStation() {
+        return currentRadioStation;
     }
 
-    public void stationUp() {
-        if (stationNumber == 10) { //Проверяет, равны ли значения или нет, если да, тогда условие становится истинным и станция становится 0
-            stationNumber = 0;
+
+    public void setCurrentRadioStation(int currentRadioStation) {
+        if (currentRadioStation < minStation) {
+            return;
+        }
+        if (currentRadioStation > amountStation - 1) {
+            return;
+        }
+        this.currentRadioStation = currentRadioStation;
+    }
+
+    public void nextRadioStation() {
+        if (currentRadioStation < amountStation - 1) {
+            currentRadioStation = currentRadioStation + 1;
+        } else
+            currentRadioStation = minStation;
+    }
+
+    public void prevRadioStation() {
+        if (currentRadioStation > minStation) {
+            currentRadioStation = currentRadioStation - 1;
         } else {
-            stationNumber++;
+            currentRadioStation = amountStation - 1;
+
         }
     }
 
-    public void statioDown() {
-        if (stationNumber == 0) {
-            stationNumber = 10;
-        } else {
-            stationNumber--;
-        }
+    public int getCurrentVolume() {
+        return currentVolume;
     }
 
-    public void volumeUp() {
-        if (volume == 100) {
-            volume = 100;
-        } else {
-            volume++;
-        }
+    public void setCurrentVolume(int currentVolume) {
+        this.currentVolume = currentVolume;
     }
 
-    public void volumeDown() {
-        if (volume == 0) {
-            volume = 0;
-        } else {
-            volume--;
+
+
+    public void VolumeUp() {
+        if (currentVolume < maxVolume) {
+            currentVolume = currentVolume + 1;
         }
+
+    }
+
+    public void VolumeDown() {
+        if (currentVolume > minVolume) {
+            currentVolume = currentVolume - 1;
+        }
+
     }
 }
+
+
+
+
+
+
 
 
